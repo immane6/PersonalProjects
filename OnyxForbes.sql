@@ -11,12 +11,12 @@ group by category
 order by Numbers desc
 
 
---Phylanthropies by rank
+--Philanthropies by rank
 select personName, philanthropyScore from PortfolioProject.dbo.OnyxForbes
 where philanthropyScore is not null
 order by philanthropyScore desc
 
---Number of billionaires in each country
+--Number of billionaires per country
 select country, count (country) as CountryCount
 from PortfolioProject.dbo.OnyxForbes
 group by country
@@ -25,16 +25,19 @@ order by CountryCount desc
 --Checking for oldest and youngest billionaire
 select personName, age
 from PortfolioProject.dbo.OnyxForbes
+where age is not null
 order by age desc
 
 --Oldest Billionaire and youngest billionaire
-select personName, age, category
+select personName, age
 from PortfolioProject.dbo.OnyxForbes
-WHERE age = 100 or personName = 'Wang Zelong'
+WHERE age = 100 or age = 19;
 
 --Counting number of male and female billionaires
-select gender , count (gender) as GenderCount from PortfolioProject.dbo.OnyxForbes
+select gender , count (gender) as GenderCount, (count(gender) * 100.0 / (select count(gender) from PortfolioProject.dbo.OnyxForbes)) as Percentage from PortfolioProject.dbo.OnyxForbes
+where gender is not null
 group by gender
+
 
 --Number of countries, categories and billionaires
 select 
